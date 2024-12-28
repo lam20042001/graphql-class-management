@@ -1,0 +1,32 @@
+# Indicates exactly one field must be supplied and this field must not be `null`.
+directive @oneOf on INPUT_OBJECT
+
+type Class {
+  id: ID!
+  name: String!
+  students: [Student!]
+}
+
+type Mutation {
+  createClass(name: String!): Class!
+  createStudent(className: String!, name: String!): Student!
+  deleteClass(id: Int!): Class!
+  deleteStudent(id: Int!): Student!
+  updateClass(id: Int!, name: String!): Class!
+  updateStudent(classId: String!, id: Int!, name: String!): Student!
+}
+
+type Query {
+  getAllClasses: [Class!]!
+  getAllStudents: [Student!]!
+  getClassById(id: Int!): Class!
+  getStudentByClass(className: String!): [Student!]!
+  getStudentById(id: Int!): Student!
+  getStudentByName(name: String!): [Student!]!
+}
+
+type Student {
+  class: Class
+  id: ID!
+  name: String!
+}
