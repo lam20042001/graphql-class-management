@@ -4,8 +4,8 @@ import Modal from '@/components/Modal';
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_STUDENT = gql`
-    mutation AddStudent($name: String!, $className: String!) {
-        createStudent(name: $name, className: $className) {
+    mutation AddStudent($input: CreateStudentInput!) {
+        createStudent(input: $input) {
             id
             name
         }
@@ -26,7 +26,7 @@ const AddStudentForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await addStudent({ variables: { name, className } });
+      await addStudent({ variables: { input: { name, className } } });
       router.push('/student');
     } catch (error: any) {
       setIsModalOpen(true);

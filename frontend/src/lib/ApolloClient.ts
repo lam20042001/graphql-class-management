@@ -1,4 +1,5 @@
-import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, DefaultOptions, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -10,9 +11,24 @@ const defaultOptions: DefaultOptions = {
     errorPolicy: 'all',
   },
 };
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3000/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: 'Bearer admin',
+    },
+  };
+});
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql', // Replace with your GraphQL endpoint
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   defaultOptions: defaultOptions,
 });
+
 export default client;

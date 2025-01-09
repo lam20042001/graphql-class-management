@@ -3,9 +3,10 @@ import { useRouter } from 'next/router';
 import Modal from '@/components/Modal';
 import { gql, useMutation } from '@apollo/client';
 
+
 const ADD_CLASS = gql`
-    mutation AddClass($name: String!) {
-        createClass(name: $name) {
+    mutation AddClass($input: CreateClassInput!) {
+        createClass(input: $input) {
             id
             name
         }
@@ -24,7 +25,7 @@ const AddClassForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await addClass({ variables: { name } });
+      await addClass({ variables: { input: { name } } });
       router.push('/class');
     } catch (error: any) {
       setIsModalOpen(true);

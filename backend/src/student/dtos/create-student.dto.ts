@@ -1,11 +1,15 @@
+import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateStudentDto {
-  @IsString()
-  @IsNotEmpty()
+@InputType()
+export class CreateStudentInput {
+  @Field(() => String)
+  @IsString({ message: 'Name must be a string' })
+  @IsNotEmpty({ message: 'Name cannot be empty' })
   name: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @Field(() => String)
+  @IsString({ message: 'Class name must be a string' })
+  @IsNotEmpty({ message: 'Class name cannot be empty' })
   className: string;
 }

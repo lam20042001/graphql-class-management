@@ -9,6 +9,8 @@ import { Class } from './class/entities/class.entity';
 import { Student } from './student/entities/student.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLFormattedError } from 'graphql/error';
+import { GraphQLError } from 'graphql';
 
 @Module({
   imports: [

@@ -2,18 +2,27 @@
 directive @oneOf on INPUT_OBJECT
 
 type Class {
-  id: ID!
+  id: Float!
   name: String!
   students: [Student!]
 }
 
+input CreateClassInput {
+  name: String!
+}
+
+input CreateStudentInput {
+  className: String!
+  name: String!
+}
+
 type Mutation {
-  createClass(name: String!): Class!
-  createStudent(className: String!, name: String!): Student!
+  createClass(input: CreateClassInput!): Class!
+  createStudent(input: CreateStudentInput!): Student!
   deleteClass(id: Int!): Class!
   deleteStudent(id: Int!): Student!
-  updateClass(id: Int!, name: String!): Class!
-  updateStudent(classId: String!, id: Int!, name: String!): Student!
+  updateClass(input: UpdateClassInput!): Class!
+  updateStudent(input: UpdateStudentInput!): Student!
 }
 
 type Query {
@@ -27,6 +36,17 @@ type Query {
 
 type Student {
   class: Class
-  id: ID!
+  id: Float!
   name: String!
+}
+
+input UpdateClassInput {
+  id: Int!
+  name: String
+}
+
+input UpdateStudentInput {
+  className: String
+  id: Int!
+  name: String
 }

@@ -93,6 +93,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await client.query({
     query: GET_ALL_STUDENTS,
   });
+  console.log(data, 'fff');
   return {
     props: {
       data: data.getAllStudents,

@@ -13,8 +13,8 @@ const GET_ALL_STUDENTS = gql`
     }
 `;
 const UPDATE_STUDENT = gql`
-    mutation UpdateStudent($id: Int!, $name: String!, $className: String!) {
-        updateStudent(id: $id, name: $name, className: $className) {
+    mutation UpdateStudent($input: UpdateStudentInput!) {
+        updateStudent(input: $input) {
             id
             name
         }
@@ -49,7 +49,7 @@ const StudentDetail = ({ student }: StudentDetailProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateStudent({ variables: { id: student.id, name, className } });
+      await updateStudent({ variables: { input: { id: student.id, name, className } } });
     } catch (error: any) {
       setIsModalOpen(true);
       setError(error.message);

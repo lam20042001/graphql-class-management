@@ -1,7 +1,10 @@
+import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { IsInt, IsNotEmpty } from 'class-validator';
 
-export class GetStudentByIdDto {
-  @IsNotEmpty()
-  @IsInt()
+@ArgsType()
+export class GetStudentByIdArgs {
+  @Field(() => Int)
+  @IsNotEmpty({ message: 'ID cannot be empty' })
+  @IsInt({ message: 'ID must be an integer' })
   id: number;
 }
